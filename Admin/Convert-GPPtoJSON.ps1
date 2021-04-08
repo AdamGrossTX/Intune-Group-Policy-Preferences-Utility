@@ -6,13 +6,6 @@ param(
     [Parameter(Mandatory = $false, ValueFromPipeline = $true, ValueFromPipelinebyPropertyName = $true)]
     [System.IO.DirectoryInfo]$ExportPath = ".\Rules"
 )
-
-#region Main
-$Main = {
-    Get-GPOSettings -GPOName $GPOName -ExportPath $ExportPath
-}
-#endregion
-
 #region Functions
 function Get-GPOSettings {
     param(
@@ -53,7 +46,6 @@ function Get-GPOSettings {
         throw $_
     }
 }
-
 function New-RuleObj {
     [CmdletBinding()]
     param (
@@ -106,7 +98,6 @@ function New-RuleObj {
     }
 }
 #endregion
-
-#Region Launch Main
-& $Main
+#Region Process
+Get-GPOSettings -GPOName $GPOName -ExportPath $ExportPath
 #endregion
